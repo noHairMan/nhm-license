@@ -210,3 +210,7 @@ __marimo__/
 # Custom
 .air/
 .junie/
+grace.db
+*.db
+*.pem
+*.key

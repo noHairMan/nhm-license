@@ -43,8 +43,25 @@ grace 是一个 License 服务管理平台，旨在为用户提供便捷的 Lice
 
 ### 📖 API 接口说明
 
-#### 1. License 校验
-验证客户端提供的 License 文件是否有效。
+#### 1. License 签发
+管理员调用此接口为客户签发一个新的 License。
+
+- **URL**: `/api/v1/license/issue`
+- **Method**: `POST`
+- **Request Body**:
+  ```json
+  {
+    "customer_name": "string",
+    "client_id": "string",
+    "expiry_date": "ISO8601 datetime",
+    "features": ["string"]
+  }
+  ```
+- **Response**:
+  - `200 OK`: 返回生成的 `license_key` 和 Base64 编码的完整 License 数据。
+
+#### 2. License 校验
+验证客户端提供的 License 是否有效。
 
 - **URL**: `/api/v1/license/verify`
 - **Method**: `POST`
@@ -56,8 +73,8 @@ grace 是一个 License 服务管理平台，旨在为用户提供便捷的 Lice
   }
   ```
 - **Response**:
-  - `200 OK`: 校验通过
-  - `403 Forbidden`: License 已过期或无效
+  - `200 OK`: 校验通过，返回 License 包含的数据。
+  - `403 Forbidden`: License 不存在、已过期、ClientId 不匹配或签名错误。
 
 ### 📄 许可证
 
